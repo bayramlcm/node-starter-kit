@@ -9,14 +9,14 @@ module.exports = {
         })
     }),
     // ID'den kullanıcı bilgisini getir
-    getById: (_id) => new Promise((resolve, reject) => {
+    getById: ({_id}) => new Promise((resolve, reject) => {
         users.findOne({_id}, (err, data) => {
             if (err) return reject(err);
             resolve(data);
         })
     }),
     // Kullanıcı kayıt et
-    insert: ({name, surname, age}) => new Promise((resolve, reject) => {
+    add: ({name, surname, age}) => new Promise((resolve, reject) => {
         users.create({name, surname, age}, (err, data) => {
             if (err) return reject(err);
             resolve(data);

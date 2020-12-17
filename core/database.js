@@ -13,15 +13,15 @@ const run = (app) => {
     app.set('database', database)
 }
 
-const scan = (MODELPATH) => {
+const scan = (DATABASEPATH) => {
     let founds = []
      // Dosya Taraması
-     fs.readdirSync(MODELPATH).forEach(file => {
-        fileDir = path.join(MODELPATH, file);
+     fs.readdirSync(DATABASEPATH).forEach(file => {
+        fileDir = path.join(DATABASEPATH, file);
         if (fs.lstatSync(fileDir).isFile()) {
             // JS Dosyasımı
             if (file.length > 3 && file.slice(-3) === '.js') {
-                founds.push(path.join(MODELPATH, file).split('.js')[0])
+                founds.push(path.join(DATABASEPATH, file).split('.js')[0])
             }
         }
     });

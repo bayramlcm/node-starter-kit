@@ -3,7 +3,7 @@ const app = express();
 
 // Tüm kullanıcıları döndürür
 app.get('/getAll', (req, res) => {
-    const { getAll } = app.get('model').users
+    const { getAll } = app.get('model').user
 
     getAll().then((data) => {
         res.json({
@@ -21,12 +21,17 @@ app.get('/getAll', (req, res) => {
 });
 
 // Kullanıcı bilgisini döndür
-app.get('/get/:userId', (req, res) => {
-    const { userId } = req.params;
+app.get('/get/:_id', (req, res) => {
+    const body = app.get('validation').user.get.validate(req.params)
+    if (body.error) return res.json({
+        type: false,
+        data: {},
+        message: body.error
+    });
 
-    const { getById } = app.get('model').users
+    const { getById } = app.get('model').user
 
-    getById(userId).then((data) => {
+    getById(body.value).then((data) => {
         res.json({
             type: true,
             data: data,
@@ -39,15 +44,22 @@ app.get('/get/:userId', (req, res) => {
             message: err
         })
     });
+
 })
 
 // Kullanıcı oluştur
-app.get('/insert/:name/:surname/:age', (req, res) => {
-    const { name, surname, age } = req.params;
+app.get('/add/:name/:surname/:age', (req, res) => {
+    // Validation İşlemleri
+    const body = app.get('validation').user.add.validate(req.params);
+    if (body.error) return res.json({
+        type: false,
+        data: {},
+        message: body.error
+    });
 
-    const { insert } = app.get('model').users
-
-    insert({name, surname, age}).then((data) => {
+    const { add } = app.get('model').user
+    // Kullanıcıyı ekle
+    add(body.value).then((data) => {
         res.json({
             type: true,
             data: data,
@@ -60,6 +72,7 @@ app.get('/insert/:name/:surname/:age', (req, res) => {
             message: err
         })
     });
+
 })
 
 
