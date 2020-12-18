@@ -5,7 +5,7 @@ const C_DATABASE = require('./database')
 const C_CONTROLLER = require('./controller')
 const C_VALIDATOIN = require('./validation')
 
-const exec = (app, settings) => {
+const use = (app, settings) => {
     // Server Start
     C_SERVER.run(app, settings)
     // Database Start
@@ -22,4 +22,4 @@ const exec = (app, settings) => {
     console.log("Validation RUN!");
 }
 
-module.exports = {exec};
+module.exports = { use };

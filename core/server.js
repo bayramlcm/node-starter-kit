@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
+const helmet = require('helmet');
 const bodyParser = require('body-parser');
 
 const run = (app, settings) => {
@@ -28,6 +29,10 @@ const run = (app, settings) => {
     // CORS
     if (settings.cors === true) {
         app.use(cors())
+    }
+    // HELMET
+    if (settings.helmet === true) {
+        app.use(helmet())
     }
     
 };

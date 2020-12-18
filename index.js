@@ -3,11 +3,12 @@ const app = express();
 
 const CORE = require('./core');
 
-CORE.exec(app, {
+CORE.use(app, {
     cors: true,
     json: true,
     morgan: true,
     mongo: true,
+    helmet: true,
 })
 
 app.listen(1111, () => {
