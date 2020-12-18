@@ -32,11 +32,19 @@ app.get('/get/:_id', (req, res) => {
     const { getById } = app.get('model').user
 
     getById(body.value).then((data) => {
-        res.json({
-            type: true,
-            data: data,
-            message: "Kullanıcı bilgisi getirildi."
-        })
+        if (data === null) {
+            res.json({
+                type: false,
+                data: {},
+                message: "Kullanıcı bulunamadı."
+            })
+        } else {
+            res.json({
+                type: true,
+                data: data,
+                message: "Kullanıcı bilgisi getirildi."
+            })
+        }
     }).catch((err) => {
         res.json({
             type: true,
@@ -48,9 +56,9 @@ app.get('/get/:_id', (req, res) => {
 })
 
 // Kullanıcı oluştur
-app.get('/add/:name/:surname/:age', (req, res) => {
+app.post('/add', (req, res) => {
     // Validation İşlemleri
-    const body = app.get('validation').user.add.validate(req.params);
+    const body = app.get('validation').user.add.validate(req.body);
     if (body.error) return res.json({
         type: false,
         data: {},
@@ -68,6 +76,34 @@ app.get('/add/:name/:surname/:age', (req, res) => {
     }).catch((err) => {
         res.json({
             type: false,
+            data: {},
+            message: err
+        })
+    });
+
+})
+
+
+// Kullanıcı Siler
+app.delete('/delete/:_id', (req, res) => {
+    const body = app.get('validation').user.get.validate(req.params)
+    if (body.error) return res.json({
+        type: false,
+        data: {},
+        message: body.error
+    });
+
+    const { deleteById } = app.get('model').user
+
+    deleteById(body.value).then((data) => {
+        res.json({
+            type: true,
+            data: data,
+            message: "Kullanıcı başarıyla silindi."
+        })
+    }).catch((err) => {
+        res.json({
+            type: true,
             data: {},
             message: err
         })

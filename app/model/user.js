@@ -21,5 +21,12 @@ module.exports = {
             if (err) return reject(err);
             resolve(data);
         })
-    })
+    }),
+    // Kullanıcı Sil
+    deleteById: ({_id}) => new Promise((resolve, reject) => {
+        users.deleteOne({_id}, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    }), 
 }
