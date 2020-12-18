@@ -86,7 +86,7 @@ app.post('/add', (req, res) => {
 
 // Kullanıcı Siler
 app.delete('/delete/:_id', (req, res) => {
-    const body = app.get('validation').user.get.validate(req.params)
+    const body = app.get('validation').user.delete.validate(req.params)
     if (body.error) return res.json({
         type: false,
         data: {},
@@ -96,11 +96,19 @@ app.delete('/delete/:_id', (req, res) => {
     const { deleteById } = app.get('model').user
 
     deleteById(body.value).then((data) => {
-        res.json({
-            type: true,
-            data: data,
-            message: "Kullanıcı başarıyla silindi."
-        })
+        if (data.deletedCount === 0) {
+            res.json({
+                type: false,
+                data: {},
+                message: "Kullanıcı bulunamadı."
+            })
+        } else {
+            res.json({
+                type: true,
+                data: data,
+                message: "Kullanıcı başarıyla silindi."
+            })
+        }
     }).catch((err) => {
         res.json({
             type: true,
