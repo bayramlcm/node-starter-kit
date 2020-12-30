@@ -9,6 +9,9 @@ CORE.use(app, {
     morgan: true,
     mongo: true,
     helmet: true,
+    library: {
+        session: true,
+    }
 })
 
 app.listen(1111, () => {

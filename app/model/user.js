@@ -28,5 +28,5 @@ module.exports = {
             if (err) return reject(err);
             resolve(data);
         })
-    }), 
+    }),
 }
