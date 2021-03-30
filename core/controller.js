@@ -38,7 +38,7 @@ const scan = (CONTROLLERPATH, founds = []) => {
         if (path.parse(a).base === 'index') {
             return -1;
         } else if (path.parse(b).base === 'index') {
-            return -1;
+            return 1;
         }
         return 0;
     }))
