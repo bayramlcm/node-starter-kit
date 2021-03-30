@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 const CORE = require('./core');
+const CONFIG = require('./app/config');
 
 CORE.use(app, {
     cors: true,
@@ -14,6 +15,6 @@ CORE.use(app, {
     }
 })
 
-app.listen(1111, () => {
-    console.log("Server RUN!");
+app.listen(CONFIG.server.port, () => {
+    console.log(`Server RUN ${CONFIG.server.host}:${CONFIG.server.port}!`);
 });

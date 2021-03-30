@@ -12,8 +12,11 @@ const run = (app) => {
         if (path.parse(route).base === 'index') route = route.slice(0, -5)
         // Eğer sonunda / varsa kaldır
         if (route.length > 1 && route.slice(-1) == '/') route = route.slice(0, -1)
-        // Route sistemine dahil et
-        app.use(route, require(dir))
+        // Boş veri değilse
+        if (dir !== "") {
+            // Route sistemine dahil et
+            app.use(route, require(dir))
+        }
     });
 }
 
